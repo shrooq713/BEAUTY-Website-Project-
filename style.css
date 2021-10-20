@@ -188,12 +188,12 @@ label{
 
 /* Responsive design */
 
-@media only screen and (max-width: 844){
+@media only screen and (max-width: 844px){
     .nav{
         column-gap: 5px;
     }
     img.offers{
-        width: 420px;
+        width: 780px;
         margin-left: 3% ;
         margin-top: 1%;
         margin-bottom: 1%;
