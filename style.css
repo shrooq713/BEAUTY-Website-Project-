@@ -141,7 +141,14 @@ h2.shopByCategory,h2.recomended{
     align-items: center;  
     margin: 20px 4%;
 }
-
+.signUp{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;  
+    margin: 20px 4%;
+}
 
 label{
     font-size: 30px;
@@ -161,6 +168,13 @@ label{
     align-items: center;  
     margin: 20px 4%;
 }
+.formSingUp{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;  
+    margin: 20px 4%;
+}
 
 .productParent{
     display: flex;
@@ -174,7 +188,7 @@ label{
 
 /* Responsive design */
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 768px) and (min-width: 576px){
     img.offers{
         width: 525px;
         margin-left: 3% ;
@@ -201,5 +215,8 @@ label{
         column-gap: 60px;
         row-gap: 30px;
         margin: 2% 2%;
+    }
+    #logoSing{
+        width: 250px;
     }
   }

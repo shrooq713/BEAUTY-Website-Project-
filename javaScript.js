@@ -84,7 +84,7 @@ function nav(body) {
   
 }
 
-function productPage(product) {
+function productPage(product,i) {
   console.log("inside product page");
   const body = document.querySelector("body")
   body.innerHTML = ""
@@ -94,22 +94,35 @@ function productPage(product) {
   const div = document.createElement("div")
   div.className = "product"
   
-  // const h2 = document.createElement("h2");
-  // h2.className = "product"
-  // h2.innerText = "Products:"
-  // div.append(h2)
   const divP = document.createElement("div")
   divP.className ="productParent"
-  
-    const img = document.createElement("img");
-    img.className = "product"
-    img.id = "imgProduct"
-    // temp = testImage(img,products[i].image_link)
-    // if (temp==null) {
+  // const img = document.createElement("img");
+  // img.className = "product"
+  // img.id = "imgProduct"
+  // temp = testImage(img,products[i].image_link)
+  // if (temp==null) {
     //   console.log("inside continue");
     //   continue
     // }
-    img.src = product.image_link
+
+
+    // img.src = product.image_link
+    //
+
+    const img = document.createElement("img");
+    img.className = "recomended"
+    img.id = "imgProduct"
+    if (i==0||i==1||i==2) {
+      img.src = product.image_link
+    }else{
+      let fixLink = product.image_link.slice(8);
+      fixLink = fixLink.slice(4);
+      fixLink = "http://".concat(fixLink);
+      console.log("fix link is : "+fixLink);
+      img.src = fixLink
+    }
+    //
+
     img.style.width = "400px"
 
 
@@ -124,7 +137,12 @@ function productPage(product) {
     //color div
     const colorDiv = document.createElement("div");
     let colorArr =[]
+
     for (let i = 0; i <5; i++) {
+      let temp = product.product_colors[i]
+      if (product.product_colors[i].includes("hex_value")) {
+        continue
+      }
       const colorsB = document.createElement("button");
       colorsB.className = "colorsB"
       colorsB.style.backgroundColor = product.product_colors[i].hex_value 
@@ -173,7 +191,6 @@ function productPage(product) {
     })
   }
 }
-
 function orderPage() {
   const body = document.querySelector("body")
   body.innerHTML = ""
@@ -270,9 +287,72 @@ function signInPage() {
   const div2 = document.createElement("div")
   inputPassword.id = "password"
 
-  const sumbitB = document.createElement("input")
-  sumbitB.type ="submit"
+  const signUpLink = document.createElement("p")
+  const LinkB = document.createElement("button")
+  LinkB.innerText = "sign up!"
+  LinkB.className="sumbitB"
+  signUpLink.innerText= "You don't have account?"
+
+  const sumbitB = document.createElement("Button")
   sumbitB.className="sumbitB"
+  sumbitB.innerText = "sign in"
+  const div3 = document.createElement("div")
+
+  div1.append(userName)
+  div1.append(inputUsername)
+  div2.append(password)
+  div2.append(inputPassword)
+  form.append(div1)
+  form.append(div2)
+  
+  div3.append(sumbitB)
+
+  form.append(div3)
+  div.append(form)
+  div.append(signUpLink)
+  div.append(LinkB)
+  body.append(div)
+  footer(body)
+
+  sumbitB.addEventListener("click", function() {
+    changeUserName()
+    checkUser()
+  })
+  LinkB.addEventListener("click", function() {
+    signUpPage()
+  })  
+}
+function signUpPage() {
+  const body = document.querySelector("body")
+  body.innerHTML = ""
+  nav(body)
+  
+  const div = document.createElement("div")
+  div.className = "signUp"
+  const imgLogo = document.createElement("img")
+  imgLogo.src = "Image/Logo.png"
+  imgLogo.id ="logoSing"
+  div.append(imgLogo)
+
+  const form = document.createElement("form")
+  form.className="formSingUp"
+  const div1 = document.createElement("div")
+  const userName = document.createElement("label")
+  userName.innerText = "Enter user name: "
+  const inputUsername = document.createElement("input")
+  inputUsername.type ="text"
+  inputUsername.id = "userName"
+
+  const password = document.createElement("label")
+  password.innerText = "Enter Password: "
+  const inputPassword = document.createElement("input")
+  inputPassword.type ="password"
+  const div2 = document.createElement("div")
+  inputPassword.id = "password"
+
+  const sumbitB = document.createElement("Button")
+  sumbitB.className="sumbitB"
+  sumbitB.innerText = "sign up"
   const div3 = document.createElement("div")
 
   div1.append(userName)
@@ -291,21 +371,39 @@ function signInPage() {
   sumbitB.addEventListener("click", function() {
     storeUser()
     changeUserName()
-})
+  })
 }
 function storeUser(){
-  let users = localStorage.getItem("users")
-  // let randomKey = (Math.random() + 1).toString(36).substring(7);
-  // console.log("random", randomKey);
-  let inputUserName= document.getElementById("userName").value
-  let inputPassword= document.getElementById("password").value
-  // let temp = {"Key": randomKey,"inputUserName":inputUserName,"inputPassword":inputPassword}
-  let temp =[inputUserName,inputPassword]
-  // users.push(temp)
-  localStorage.setItem("users",temp);
-
-
+  let users = JSON.parse(localStorage.getItem("users"))||[]
+  let userInfo={
+    userName: document.getElementById("userName").value,
+    password: document.getElementById("password").value
+  }
+  users.push(userInfo)
+  localStorage.setItem("users",JSON.stringify(users));
  }
+function checkUser(){
+  let users = JSON.parse(localStorage.getItem("users"))||[]
+  // let userInfo={
+  //   inputUserName: document.getElementById("userName").value,
+  //   inputPassword: document.getElementById("password").value
+  // }
+  for (let i = 0; i < users.length; i++) {
+    if(users[i].userName === document.querySelector("#userName").value){
+      if (users[i].password ===document.querySelector("#password").value) {
+        console.log("------------------------[-----------------------------------------");
+        homePage()
+      }
+    }else{
+      signUpPage()
+      alert("The username or password is not correct!")
+    }
+    
+  }
+  // users.push(userInfo)
+  // users.push(temp)
+  // localStorage.setItem("users",JSON.stringify(users));
+}
 function adv(body) {
   const div = document.createElement("div")
   div.className = "offers"
@@ -419,7 +517,7 @@ function Recommended(body) {
   for (let i = 0; i < productButton.length; i++) {
     let button = productButton[i]
     button.addEventListener("click", function() {
-      productPage(products[i])
+      productPage(products[i],i)
     })
   }
 
