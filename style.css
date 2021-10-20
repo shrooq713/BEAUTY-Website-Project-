@@ -9,11 +9,14 @@ body{
 #cart{
     width: 30px;
 }
-.offers{
-    width: 100%;
+img.offers{
+    width: 1340px;
+    margin-left: 3% ;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 button.nav{
-    width: 60px;
+    width: 80px;
     height: 40px;
     background-color: rgb(204, 56, 125);
     color: rgb(228, 225, 225);
@@ -23,37 +26,180 @@ button.nav{
     justify-content: space-between;
     align-items: center;
     column-gap: 20px;
-    border-radius:15px;
-    padding: 10px 65px;
-    margin: 2px;
+    border-radius:10px;
+    margin-left: 3% ;
+    margin-right: 3%;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 
 .footer{
     display: flex;
-    justify-content: space-between;
+    justify-content:space-around;
     align-content: center;
-    column-gap: 20px;
-    background-color:  rgb(187, 187, 187);
-    padding: 1%;
-    margin: 5%;
-
+    column-gap: 70px;
+    background-color: rgb(228, 225, 225);
+    padding: 3%;
+    margin-left: 3% ;
+    margin-right: 3%;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
+
 .recomended{
+    background-color: rgb(228, 225, 225);
+    padding-top: 2px;
+    padding-bottom: 4px;
+    margin-left: 3% ;
+    margin-right: 3%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.recomendedParent{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 60px;
+    row-gap: 30px;
+    margin: 2% 2%;
+}
+#divCh0,#divCh1,#divCh2,#divCh3{
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-content: center;
-    column-gap: 2px;
-    background-color:  rgb(187, 187, 187);
-    padding: 1%;
-    margin: 5%;
-}
-button{
-    width: 60px;
-    height: 40px;
-    background-color:white;
+    align-items: center; 
+    margin-right: 1%;   
 }
 
-.shopByCategory{
-    background-color: turquoise;
+img.recomended{
+    height: 250px;
 }
+p.recomended{
+    color: rgb(204, 56, 125);
+}
+
+button.AllProducts{
+    align-self: center;
+    width: 180px;
+    height: 40px;
+    background-color: rgb(204, 56, 125);
+    color: rgb(228, 225, 225);
+    font-size: 20px;
+}
+button.addToCart{
+    width: 90px;
+    height: 40px;
+    background-color: rgb(204, 56, 125);
+    color: rgb(228, 225, 225);
+}
+.shopByCategory{
+    background-color: rgb(228, 225, 225);
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-left: 3% ;
+    margin-right: 3%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+}
+.shopByCategoryParent{
+    display: grid;
+    background-color: rgb(228, 225, 225);
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-content:space-around; 
+    align-content: center;
+    margin: 20px 4%;
+}
+
+
+button.shopByCategory{
+    width: 140px;
+    height: 150px;
+    background-color: rgb(228, 225, 225);
+    color: rgb(204, 56, 125);
+    font-weight: bold;
+}
+
+img.shopByCategory{
+    align-items: center;
+    width: 90px;
+    height: 90px;
+    background-color: non;
+}
+
+h2.shopByCategory,h2.recomended{
+    color: rgb(204, 56, 125);
+}
+
+.signIn{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;  
+    margin: 20px 4%;
+}
+
+
+label{
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(204, 56, 125);
+}
+.sumbitB,h2{
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(228, 225, 225);
+    background-color: rgb(204, 56, 125);
+}
+.formSingin{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;  
+    margin: 20px 4%;
+}
+
+.productParent{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;  
+    margin: 20px 4%;
+    background-color: white;
+}
+
+
+/* Responsive design */
+
+@media only screen and (max-width: 576px) {
+    img.offers{
+        width: 525px;
+        margin-left: 3% ;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+    .shopByCategory{
+        background-color: rgb(228, 225, 225);
+        padding-top: 2px;
+        padding-bottom: 2px;
+        margin-left: 3% ;
+        margin-right: 3%;
+        margin-top: 1%;
+        margin-bottom: 3%;
+    }
+    .shopByCategoryParent{
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-left: 30% ;
+    }
+    .recomendedParent{
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: 60px;
+        row-gap: 30px;
+        margin: 2% 2%;
+    }
+  }
