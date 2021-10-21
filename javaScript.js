@@ -157,6 +157,10 @@ function productPage(product,i) {
     if (product.price ==0.0 || product.price ==0) {
       fixPrice = Math.floor(Math.random() * 8)+1
       price.innerText= fixPrice + product.price_sign
+    }    // else set price
+    else{
+      price.innerText= products[i].price + products[i].price_sign
+
     }
 
     const addToCart = document.createElement("button");
