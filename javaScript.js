@@ -6,7 +6,7 @@ if (users != null) {
   homePage()
 }else{
   console.log("inside else");
-  fetch('http://makeup-api.herokuapp.com/api/v1/products.json')
+  fetch('https://makeup-api.herokuapp.com/api/v1/products.json')
     .then(function(response) {    
     return response.json()})
     .then(function (json) { 
@@ -441,7 +441,7 @@ function Recommended(body) {
   
   const h2 = document.createElement("h2");
   h2.className = "recomended"
-  h2.innerText = "Recommended Products:"
+  // h2.innerText = "Recommended Products:"
   div.append(h2)
   const divP = document.createElement("div")
   divP.className ="recomendedParent"
