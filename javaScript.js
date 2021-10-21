@@ -136,13 +136,13 @@ function productPage(product,i) {
 
     //color div
     // const colorDiv = document.createElement("div");
-    // let colorArr =[]
+    // // let colorArr =[]
 
     // for (let i = 0; i <5; i++) {
     //   let temp = product.product_colors[i]
-    //   if (product.product_colors[i].includes("hex_value")) {
-    //     continue
-    //   }
+    //   // if (product.product_colors[i].includes("hex_value")) {
+    //   //   continue
+    //   // }
     //   const colorsB = document.createElement("button");
     //   colorsB.className = "colorsB"
     //   colorsB.style.backgroundColor = product.product_colors[i].hex_value 
@@ -159,7 +159,7 @@ function productPage(product,i) {
       price.innerText= fixPrice + product.price_sign
     }    // else set price
     else{
-      price.innerText= products[i].price + products[i].price_sign
+      price.innerText= product.price + product.price_sign
 
     }
 
