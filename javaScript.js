@@ -459,15 +459,16 @@ function Recommended(body) {
     const img = document.createElement("img");
     img.className = "recomended"
     img.id = "imgProduct"
-    if (i==0||i==1||i==2) {
+    // if (i==0||i==1||i==2) {
       img.src = products[i].image_link
-    }else{
-      let fixLink = products[i].image_link.slice(8);
-      fixLink = fixLink.slice(4);
-      fixLink = "http://".concat(fixLink);
-      console.log("fix link is : "+fixLink);
-      img.src = fixLink
-    }
+    // }
+    // else{
+    //   let fixLink = products[i].image_link.slice(8);
+    //   fixLink = fixLink.slice(4);
+    //   fixLink = "http://".concat(fixLink);
+    //   console.log("fix link is : "+fixLink);
+    //   img.src = fixLink
+    // }
     console.log("count "+i);
     img.style.width = "250px"
 
