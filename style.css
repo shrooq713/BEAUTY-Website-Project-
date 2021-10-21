@@ -108,12 +108,16 @@ button.addToCart{
     margin-bottom: 1%;
 }
 .shopByCategoryParent{
-    display: grid;
+    display: flex;
     background-color: rgb(228, 225, 225);
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    justify-content:space-around; 
-    align-content: center;
-    margin: 20px 1%;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+    /* justify-content:space-around; 
+    align-content: center; */
+    margin: 20px;
+    justify-content: space-between;
+    align-items: center; 
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 
