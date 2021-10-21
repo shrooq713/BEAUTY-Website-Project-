@@ -21,6 +21,6 @@ Just open index.html page
 
 ### The used API
 
-Make up API have over 900 makeup product that's conatin product name, price, brand, and so on.
+Makeup API have over 900 makeup product that's conatin product name, price, brand, and so on.
 The Docementaion:
 https://makeup-api.herokuapp.com/
