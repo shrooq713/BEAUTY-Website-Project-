@@ -6,9 +6,13 @@ BEAUTY is Online Shopping Website which is provide easy buying services for make
 
 BEAUTY online Shopping Website build to provide makeup products for users. It's provide shopping by category and allows the user to have its own account. Also, user can add products to his own cart and buy it in easiest way.
 
+## Executing program
+
+Just open index.html page
+
 ### Technologies Used In Website
 
->- Make up API
+>- Makeup API
 >- Languages:
 >   - HTML
 >   - CSS
