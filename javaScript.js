@@ -1,12 +1,22 @@
-// console.log("in js");
-// fetch('http://makeup-api.herokuapp.com/api/v1/products.json')
-// .then(function(response) {
-//   return response.json()})
-//   .then(function (json) { 
-//     storeData(json)
-//     // homePage()
-// })
-homePage()
+console.log("in js");
+
+let users = JSON.parse(localStorage.getItem("products"))
+if (users != null) {
+  console.log("inside if");
+  homePage()
+}else{
+  console.log("inside else");
+  fetch('http://makeup-api.herokuapp.com/api/v1/products.json')
+    .then(function(response) {    
+    return response.json()})
+    .then(function (json) { 
+      console.log("in fetch");
+      storeData(json)
+      homePage()
+})
+}
+
+// setTimeout(() => { homePage()}, 9000);
 function homePage() {
   const body = document.querySelector("body")
   body.innerHTML = ""
@@ -65,6 +75,7 @@ function nav(body) {
   const signIn = document.createElement("button")
   signIn.innerText="Sign In"
   signIn.className = "nav"
+  signIn.id = "signInB"
   div.append(imgLogo)
   div.append(homePageB)
   div.append(cartB)
@@ -96,31 +107,18 @@ function productPage(product,i) {
   
   const divP = document.createElement("div")
   divP.className ="productParent"
-  // const img = document.createElement("img");
-  // img.className = "product"
-  // img.id = "imgProduct"
-  // temp = testImage(img,products[i].image_link)
-  // if (temp==null) {
-    //   console.log("inside continue");
-    //   continue
-    // }
-
-
-    // img.src = product.image_link
-    //
-
-    const img = document.createElement("img");
-    img.className = "recomended"
-    img.id = "imgProduct"
-    if (i==0||i==1||i==2) {
-      img.src = product.image_link
-    }else{
-      let fixLink = product.image_link.slice(8);
-      fixLink = fixLink.slice(4);
-      fixLink = "http://".concat(fixLink);
-      console.log("fix link is : "+fixLink);
-      img.src = fixLink
-    }
+  const img = document.createElement("img");
+  img.className = "recomended"
+  img.id = "imgProduct"
+  if (i==0||i==1||i==2) {
+    img.src = product.image_link
+  }else{
+    let fixLink = product.image_link.slice(8);
+    fixLink = fixLink.slice(4);
+    fixLink = "http://".concat(fixLink);
+    console.log("fix link is : "+fixLink);
+    img.src = fixLink
+  }
     //
 
     img.style.width = "400px"
@@ -134,27 +132,32 @@ function productPage(product,i) {
     brand.className = "recomended"
     brand.innerText= product.brand 
 
-    //color div
-    const colorDiv = document.createElement("div");
-    let colorArr =[]
+    //NOT FINISH YET
 
-    for (let i = 0; i <5; i++) {
-      let temp = product.product_colors[i]
-      if (product.product_colors[i].includes("hex_value")) {
-        continue
-      }
-      const colorsB = document.createElement("button");
-      colorsB.className = "colorsB"
-      colorsB.style.backgroundColor = product.product_colors[i].hex_value 
-      colorsB.style.borderRadius = "200px"
-      colorsB.style.width = "50px"
-      colorsB.style.height = "50px"
-      colorDiv.append(colorsB)
-    }
+    //color div
+    // const colorDiv = document.createElement("div");
+    // let colorArr =[]
+
+    // for (let i = 0; i <5; i++) {
+    //   let temp = product.product_colors[i]
+    //   if (product.product_colors[i].includes("hex_value")) {
+    //     continue
+    //   }
+    //   const colorsB = document.createElement("button");
+    //   colorsB.className = "colorsB"
+    //   colorsB.style.backgroundColor = product.product_colors[i].hex_value 
+    //   colorsB.style.borderRadius = "200px"
+    //   colorsB.style.width = "50px"
+    //   colorsB.style.height = "50px"
+    //   colorDiv.append(colorsB)
+    // }
 
     const price = document.createElement("p");
     price.className = "recomended"
-    price.innerText= product.price + product.price_sign
+    if (product.price ==0.0 || product.price ==0) {
+      fixPrice = Math.floor(Math.random() * 8)+1
+      price.innerText= fixPrice + product.price_sign
+    }
 
     const addToCart = document.createElement("button");
     addToCart.className = "addToCart"
@@ -164,20 +167,18 @@ function productPage(product,i) {
     divP.append(name)
     divP.append(brand)
     divP.append(price)
-    divP.append(colorDiv)
+    // divP.append(colorDiv)
     divP.append(addToCart)
   
     body.append(divP)
 
   // ............................
-  //Create img , name ,prand,
   footer(body)
   // const colorsButton = document.querySelector(".colorsB")
   // for (let i = 0; i < colorsButton.length; i++) {
   //   let button = colorsButton[i]
   //   button.addEventListener("click", function() {
-  //     save
-  //       console.log("hiii color");
+  //
   //   })
   // }
 
@@ -202,13 +203,36 @@ function orderPage() {
   h2.innerText = "Order details"
   const div1 = document.createElement("div")
   div1.className = "productInCard"
-  const price = document.createElement("p")
-  price.id = "price"
-  const totalP = document.createElement("p")
-  totalP.id = "totalPrice"
+
+  // NOT FINISH YET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  // const productTitle = document.createElement("h5")
+  // const priceTitle = document.createElement("h5")
+  // const quantityTitle = document.createElement("h5")
+  // const totalTitle = document.createElement("h5")
+  // productTitle.innerText = "Product"
+  // priceTitle.innerText = "Price"
+  // quantityTitle.innerText = "quantity"
+  // totalTitle.innerText = "total"
+
+  // productTitle.className = "Product"
+  // priceTitle.className = "Price"
+  // quantityTitle.className = "quantity"
+  // totalTitle.className = "total"
+
+  // const price = document.createElement("p")
+  // price.id = "price"
+  // const totalP = document.createElement("p")
+  // totalP.className = "totalPrice"
+  // totalP.innerText = 0
+  // div1.append(productTitle)
+  // div1.append(priceTitle)
+  // div1.append(quantityTitle)
+  // div1.append(totalTitle)
+  // div1.append(price)
+  // div1.append(totalP)
+
   div.append(h2)
-  div1.append(price)
-  div1.append(totalP)
   div.append(div1)
   body.append(div)
   
@@ -315,7 +339,6 @@ function signInPage() {
   footer(body)
 
   sumbitB.addEventListener("click", function() {
-    changeUserName()
     checkUser()
   })
   LinkB.addEventListener("click", function() {
@@ -370,7 +393,7 @@ function signUpPage() {
 
   sumbitB.addEventListener("click", function() {
     storeUser()
-    changeUserName()
+    // changeUserName()
   })
 }
 function storeUser(){
@@ -381,35 +404,27 @@ function storeUser(){
   }
   users.push(userInfo)
   localStorage.setItem("users",JSON.stringify(users));
+  changeUserName(userInfo)
  }
 function checkUser(){
   let users = JSON.parse(localStorage.getItem("users"))||[]
-  // let userInfo={
-  //   inputUserName: document.getElementById("userName").value,
-  //   inputPassword: document.getElementById("password").value
-  // }
+
   for (let i = 0; i < users.length; i++) {
-    if(users[i].userName === document.querySelector("#userName").value){
-      if (users[i].password ===document.querySelector("#password").value) {
-        console.log("------------------------[-----------------------------------------");
+    if(users[i].userName === document.querySelector("#userName").value && users[i].password ===document.querySelector("#password").value){
         homePage()
-      }
     }else{
-      signUpPage()
       alert("The username or password is not correct!")
+      signInPage()
     }
     
   }
-  // users.push(userInfo)
-  // users.push(temp)
-  // localStorage.setItem("users",JSON.stringify(users));
 }
 function adv(body) {
   const div = document.createElement("div")
   div.className = "offers"
   const img = document.createElement("img")
   img.className= "offers"
-  img.src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBl6rS7F9bEKrlkKL3yU3LowwNYXvQPzsZjw&usqp=CAU"
+  img.src ="Image/code.jpg"
   div.append(img)
   body.append(div)
 }
@@ -450,20 +465,8 @@ function Recommended(body) {
       img.src = fixLink
     }
     console.log("count "+i);
-    // temp = testImage(img,products[i].image_link)
-    // if (temp!=null) {
-    //   console.log("inside continue");
-    //   continue
-    // }
-    // img.src = products[i].image_link
     img.style.width = "250px"
 
-
-    // img.onload = handel(img)
-    // img.addEventListener("error", function(event) {
-    //   event.target.src = json[i].image_link
-    //   event.onerror = null
-    // })
     const name = document.createElement("p");
     name.className = "recomended"
     name.innerText= products[i].name
@@ -477,7 +480,7 @@ function Recommended(body) {
     // if price ==0.0 then random price 
     let fixPrice = 0.0;
     if (products[i].price ==0.0 || products[i].price ==0) {
-      fixPrice = Math.floor(Math.random() * 8)
+      fixPrice = Math.floor(Math.random() * 8)+1
       price.innerText= fixPrice + products[i].price_sign
     }
     // else set price
@@ -490,25 +493,14 @@ function Recommended(body) {
     addToCart.className = "addToCart"
     addToCart.innerText= "Add to cart"
 
-    // if (img.src != 'Image/Default.jpg') {
-
-    // let flag=false
-    // img.onerror = function(){
-    //   this.onerror = null;
-    //   this.src = 'Image/Default.jpg'
-    //   if(this.src == 'file:///Users/shrooqsaleh/Desktop/tuwaiq/Lab%20code/BEAUTY-Website-Project-/Image/Default.jpg'){
-    //     console.log("this.src >>"+this.src);
-    //     flag=true
-    //   }
-    // };
-    // if(!flag){
-      productButton[i].append(img)
-      productButton[i].append(name)
-      productButton[i].append(brand)
-      productButton[i].append(price)
-      productButton[i].append(addToCart)
-      divP.append(productButton[i])
-    // }
+    productButton[i].append(img)
+    productButton[i].append(name)
+    productButton[i].append(brand)
+    productButton[i].append(price)
+    productButton[i].append(addToCart)
+    divP.append(productButton[i])
+    
+      
   }
   div.append(divP)
   body.append(div)
@@ -572,12 +564,14 @@ function category(body) {
   h2.className = "shopByCategory"
   h2.innerText = "Shop By Category:"
   div.append(h2)
-  const idName = ["divChild1","divChild2","divChild3","divChild4"]
-  for (let i = 0; i < 5; i++) {
+  const idName = ["divChild0","divChild1","divChild2","divChild3","divChild4"]
+  const idButton = ["Eye","Face","Lipstick","Pallet"]
+  for (let i = 0; i < 4; i++) {
     const divCh = document.createElement("div");
     divCh.id = idName[i]
     const b = document.createElement("button");
     b.className = "shopByCategory"
+    b.id = idButton[i]
     
     const img = document.createElement("img");
     img.className = "shopByCategory"
@@ -591,8 +585,429 @@ function category(body) {
   }
   div.append(divParent)
   body.append(div)
+  //"Eye","Face","Lipstick","Pallet"
+  let eyeB = document.querySelector('#Eye')
+  eyeB.addEventListener("click", function() {
+    EyeProduct(body)
+  })
+  
+  let faceB = document.querySelector('#Face')
+  faceB.addEventListener("click", function() {
+    FaceProduct(body)
+  })
+  let lipstickB = document.querySelector('#Lipstick')
+  lipstickB.addEventListener("click", function() {
+    LipstickProduct(body)
+  })
+  let palletB = document.querySelector('#Pallet')
+  palletB.addEventListener("click", function() {
+    PalletProduct(body)
+  })
 }
+function EyeProduct(body) {
+  body.innerHTML = ""
+  nav(body)
+  let products = JSON.parse(localStorage.getItem('products'))
 
+  const div = document.createElement("div")
+  div.className = "recomended"
+  console.log("in Recommended section");
+  
+  const h2 = document.createElement("h2");
+  h2.className = "recomended"
+  h2.innerText = "Recommended Products:"
+  div.append(h2)
+  const divP = document.createElement("div")
+  divP.className ="recomendedParent"
+
+  let productButton= []
+  for (let i = 0; i < 28; i++) {
+    const buttonCh = document.createElement("button")
+    buttonCh.id = "buttonCh"+i
+    productButton.push(buttonCh) 
+  }
+  for (let i = 0; i < 28; i++) {
+    if (i==3||i==4||i==5||i==6) {
+      continue
+    }
+    const img = document.createElement("img");
+    img.className = "recomended"
+    img.id = "imgProduct"
+    if (i==0||i==1||i==2) {
+      img.src = products[i].image_link
+    }else{
+      let fixLink = products[i].image_link.slice(8);
+      fixLink = fixLink.slice(4);
+      fixLink = "http://".concat(fixLink);
+      console.log("fix link is : "+fixLink);
+      img.src = fixLink
+    }
+    console.log("count "+i);
+    img.style.width = "250px"
+
+    const name = document.createElement("p");
+    name.className = "recomended"
+    name.innerText= products[i].name
+
+    const brand = document.createElement("p");
+    brand.className = "recomended"
+    brand.innerText= products[i].brand 
+
+    const price = document.createElement("p");
+    price.className = "recomended"
+    // if price ==0.0 then random price 
+    let fixPrice = 0.0;
+    if (products[i].price ==0.0 || products[i].price ==0) {
+      fixPrice = Math.floor(Math.random() * 8)
+      price.innerText= fixPrice + products[i].price_sign
+    }
+    // else set price
+    else{
+      price.innerText= products[i].price + products[i].price_sign
+
+    }
+
+    const addToCart = document.createElement("button");
+    addToCart.className = "addToCart"
+    addToCart.innerText= "Add to cart"
+
+    if (products[i].name === "Liquid Liner"|| products[i].name === "Eyeshadow" || products[i].name ==="Pressed Eye Shadow"
+    ||products[i].name ==="Perfect Lash Mascara"||products[i].name ==="Gel Liner") {
+      productButton[i].append(img)
+      productButton[i].append(name)
+      productButton[i].append(brand)
+      productButton[i].append(price)
+      productButton[i].append(addToCart)
+      divP.append(productButton[i])
+    }
+    
+      
+  }
+  div.append(divP)
+  body.append(div)
+  
+  
+  for (let i = 0; i < productButton.length; i++) {
+    let button = productButton[i]
+    button.addEventListener("click", function() {
+      productPage(products[i],i)
+    })
+  }
+
+  let addToCartButtons = document.getElementsByClassName('addToCart')
+  for (let i = 0; i < addToCartButtons.length; i++) {
+    let button = addToCartButtons[i]
+    button.addEventListener("click", function() {
+        cardCount(products[i])
+        totalPrice(products[i])
+    })
+  }
+  footer(body)
+}
+function FaceProduct(body) {
+  body.innerHTML = ""
+  nav(body)
+  let products = JSON.parse(localStorage.getItem('products'))
+
+  const div = document.createElement("div")
+  div.className = "recomended"
+  console.log("in Recommended section");
+  
+  const h2 = document.createElement("h2");
+  h2.className = "recomended"
+  h2.innerText = "Recommended Products:"
+  div.append(h2)
+  const divP = document.createElement("div")
+  divP.className ="recomendedParent"
+
+  let productButton= []
+  for (let i = 0; i < 28; i++) {
+    const buttonCh = document.createElement("button")
+    buttonCh.id = "buttonCh"+i
+    productButton.push(buttonCh) 
+  }
+  for (let i = 0; i < 28; i++) {
+    if (i==3||i==4||i==5||i==6) {
+      continue
+    }
+    const img = document.createElement("img");
+    img.className = "recomended"
+    img.id = "imgProduct"
+    if (i==0||i==1||i==2) {
+      img.src = products[i].image_link
+    }else{
+      let fixLink = products[i].image_link.slice(8);
+      fixLink = fixLink.slice(4);
+      fixLink = "http://".concat(fixLink);
+      console.log("fix link is : "+fixLink);
+      img.src = fixLink
+    }
+    console.log("count "+i);
+    img.style.width = "250px"
+
+    const name = document.createElement("p");
+    name.className = "recomended"
+    name.innerText= products[i].name
+
+    const brand = document.createElement("p");
+    brand.className = "recomended"
+    brand.innerText= products[i].brand 
+
+    const price = document.createElement("p");
+    price.className = "recomended"
+    // if price ==0.0 then random price 
+    let fixPrice = 0.0;
+    if (products[i].price ==0.0 || products[i].price ==0) {
+      fixPrice = Math.floor(Math.random() * 8)
+      price.innerText= fixPrice + products[i].price_sign
+    }
+    // else set price
+    else{
+      price.innerText= products[i].price + products[i].price_sign
+
+    }
+
+    const addToCart = document.createElement("button");
+    addToCart.className = "addToCart"
+    addToCart.innerText= "Add to cart"
+
+    if (products[i].name === "Realist Invisible Setting Powder"|| products[i].name === "B Smudged" 
+    || products[i].name ==="Pressed Eye Shadow"||products[i].name ==="Pressed Powder Foundation"||products[i].name ==="Amalia"||
+    products[i].name ==="Pressed Foundation") {
+      productButton[i].append(img)
+      productButton[i].append(name)
+      productButton[i].append(brand)
+      productButton[i].append(price)
+      productButton[i].append(addToCart)
+      divP.append(productButton[i])
+    }
+    
+      
+  }
+  div.append(divP)
+  body.append(div)
+  
+  
+  for (let i = 0; i < productButton.length; i++) {
+    let button = productButton[i]
+    button.addEventListener("click", function() {
+      productPage(products[i],i)
+    })
+  }
+
+  let addToCartButtons = document.getElementsByClassName('addToCart')
+  for (let i = 0; i < addToCartButtons.length; i++) {
+    let button = addToCartButtons[i]
+    button.addEventListener("click", function() {
+        cardCount(products[i])
+        totalPrice(products[i])
+    })
+  }
+  footer(body)
+}
+function LipstickProduct(body) {
+  body.innerHTML = ""
+  nav(body)
+  let products = JSON.parse(localStorage.getItem('products'))
+
+  const div = document.createElement("div")
+  div.className = "recomended"
+  console.log("in Recommended section");
+  
+  const h2 = document.createElement("h2");
+  h2.className = "recomended"
+  h2.innerText = "Recommended Products:"
+  div.append(h2)
+  const divP = document.createElement("div")
+  divP.className ="recomendedParent"
+
+  let productButton= []
+  for (let i = 0; i < 28; i++) {
+    const buttonCh = document.createElement("button")
+    buttonCh.id = "buttonCh"+i
+    productButton.push(buttonCh) 
+  }
+  for (let i = 0; i < 28; i++) {
+    if (i==3||i==4||i==5||i==6) {
+      continue
+    }
+    const img = document.createElement("img");
+    img.className = "recomended"
+    img.id = "imgProduct"
+    if (i==0||i==1||i==2) {
+      img.src = products[i].image_link
+    }else{
+      let fixLink = products[i].image_link.slice(8);
+      fixLink = fixLink.slice(4);
+      fixLink = "http://".concat(fixLink);
+      console.log("fix link is : "+fixLink);
+      img.src = fixLink
+    }
+    console.log("count "+i);
+    img.style.width = "250px"
+
+    const name = document.createElement("p");
+    name.className = "recomended"
+    name.innerText= products[i].name
+
+    const brand = document.createElement("p");
+    brand.className = "recomended"
+    brand.innerText= products[i].brand 
+
+    const price = document.createElement("p");
+    price.className = "recomended"
+    // if price ==0.0 then random price 
+    let fixPrice = 0.0;
+    if (products[i].price ==0.0 || products[i].price ==0) {
+      fixPrice = Math.floor(Math.random() * 8)
+      price.innerText= fixPrice + products[i].price_sign
+    }
+    // else set price
+    else{
+      price.innerText= products[i].price + products[i].price_sign
+
+    }
+
+    const addToCart = document.createElement("button");
+    addToCart.className = "addToCart"
+    addToCart.innerText= "Add to cart"
+
+    if (products[i].name === "Lippie Pencil"|| products[i].name === "Blotted Lip" 
+    || products[i].name ==="Lippie Stix"||products[i].name ==="B Glossy Lip Gloss"||products[i].name ==="Lip Gloss"||
+    products[i].name ==="Amalia" || products[i].name ==="Lipstick") {
+      productButton[i].append(img)
+      productButton[i].append(name)
+      productButton[i].append(brand)
+      productButton[i].append(price)
+      productButton[i].append(addToCart)
+      divP.append(productButton[i])
+    }
+    
+      
+  }
+  div.append(divP)
+  body.append(div)
+  
+  
+  for (let i = 0; i < productButton.length; i++) {
+    let button = productButton[i]
+    button.addEventListener("click", function() {
+      productPage(products[i],i)
+    })
+  }
+
+  let addToCartButtons = document.getElementsByClassName('addToCart')
+  for (let i = 0; i < addToCartButtons.length; i++) {
+    let button = addToCartButtons[i]
+    button.addEventListener("click", function() {
+        cardCount(products[i])
+        totalPrice(products[i])
+    })
+  }
+  footer(body)
+}
+function PalletProduct(body) {
+  body.innerHTML = ""
+  nav(body)
+  let products = JSON.parse(localStorage.getItem('products'))
+
+  const div = document.createElement("div")
+  div.className = "recomended"
+  console.log("in Recommended section");
+  
+  const h2 = document.createElement("h2");
+  h2.className = "recomended"
+  h2.innerText = "Recommended Products:"
+  div.append(h2)
+  const divP = document.createElement("div")
+  divP.className ="recomendedParent"
+
+  let productButton= []
+  for (let i = 0; i < 28; i++) {
+    const buttonCh = document.createElement("button")
+    buttonCh.id = "buttonCh"+i
+    productButton.push(buttonCh) 
+  }
+  for (let i = 0; i < 28; i++) {
+    if (i==3||i==4||i==5||i==6) {
+      continue
+    }
+    const img = document.createElement("img");
+    img.className = "recomended"
+    img.id = "imgProduct"
+    if (i==0||i==1||i==2) {
+      img.src = products[i].image_link
+    }else{
+      let fixLink = products[i].image_link.slice(8);
+      fixLink = fixLink.slice(4);
+      fixLink = "http://".concat(fixLink);
+      console.log("fix link is : "+fixLink);
+      img.src = fixLink
+    }
+    console.log("count "+i);
+    img.style.width = "250px"
+
+    const name = document.createElement("p");
+    name.className = "recomended"
+    name.innerText= products[i].name
+
+    const brand = document.createElement("p");
+    brand.className = "recomended"
+    brand.innerText= products[i].brand 
+
+    const price = document.createElement("p");
+    price.className = "recomended"
+    // if price ==0.0 then random price 
+    let fixPrice = 0.0;
+    if (products[i].price ==0.0 || products[i].price ==0) {
+      fixPrice = Math.floor(Math.random() * 8)
+      price.innerText= fixPrice + products[i].price_sign
+    }
+    // else set price
+    else{
+      price.innerText= products[i].price + products[i].price_sign
+
+    }
+
+    const addToCart = document.createElement("button");
+    addToCart.className = "addToCart"
+    addToCart.innerText= "Add to cart"
+
+    if (products[i].name === "B Smudged"|| products[i].name === "Multi Purpose Powder - Blush & Eye" 
+    || products[i].name ==="Multi Purpose Powder - Blush & Eye"||products[i].name ==="Multi Purpose Powder - Eye Shadow & Face"||products[i].name ==="Lip Gloss"||
+    products[i].name ==="Bronzer - loose" || products[i].name ==="Bronzer - pressed"|| products[i].name ==="Pressed Eye Shadow"
+    || products[i].name ==="Mineral Blush" || products[i].name ==="Loose Mineral Eyeshadow") {
+      productButton[i].append(img)
+      productButton[i].append(name)
+      productButton[i].append(brand)
+      productButton[i].append(price)
+      productButton[i].append(addToCart)
+      divP.append(productButton[i])
+    }
+    
+      
+  }
+  div.append(divP)
+  body.append(div)
+  
+  
+  for (let i = 0; i < productButton.length; i++) {
+    let button = productButton[i]
+    button.addEventListener("click", function() {
+      productPage(products[i],i)
+    })
+  }
+
+  let addToCartButtons = document.getElementsByClassName('addToCart')
+  for (let i = 0; i < addToCartButtons.length; i++) {
+    let button = addToCartButtons[i]
+    button.addEventListener("click", function() {
+        cardCount(products[i])
+        totalPrice(products[i])
+    })
+  }
+  footer(body)
+}
 function footer(body) {
   const div = document.createElement("div")
   div.className = "footer"
@@ -642,7 +1057,7 @@ function footer(body) {
 function cardCount(product) {
   const countP = document.querySelector('.count')
   let cardCount = localStorage.getItem('CardCount')
-  //convert into int to count the products in card
+  //convert into int to count the products in cart
   cardCount = parseInt(cardCount)
 
   // if Card is not empty increse count in card button by 1 then save it into local storage
@@ -658,30 +1073,53 @@ function cardCount(product) {
   }
 
   // call addProductToCart() to add product into card
-  // addProductToCart(product)
+  addProductToCart(product)
 }
-function totalPrice(product,priceP) {
-  let cartCost = localStorage.getItem('userName')
-  // const priceP = document.querySelector('#totalPrice')
+
+function totalPrice(product) {    
+  let cartCost = localStorage.getItem('totalCost')
+  // const priceP = document.querySelector('.totalPrice')
+  console.log("total incresed "+cartCost);
+  
+  console.log("total incresed "+cartCost);
   let temp = 0;
   if(cartCost!=null){
       cartCost = parseFloat(cartCost)
       temp = parseFloat(product.price)
       temp = cartCost + temp
       localStorage.setItem("totalCost", temp)
-      // priceP.innerText = temp 
+      // priceP.innerText = temp +" "
   }else{
       localStorage.setItem("totalCost", product.price)
-      // priceP.innerText = product.price 
+      // priceP.innerText = product.price
   }
 }
-
-function changeUserName() {
-  let users = localStorage.getItem('users')
-  const usersB = document.querySelector('#userName')
-  // let temp = 0;
-  // if(users!=null){
-    usersB.innerText =users[0]
+// NOT FINISH YET
+// function changeUserName(user) {
+//   // let users = localStorage.getItem('users')
+//   const usersB = document.querySelector('#signInB')
+//   usersB.innerText = user.userName
+//   // document.getElementById("userName").value
   
+// }
+
+function addProductToCart(product) {//set items
+  let cartItems =JSON.parse(localStorage.getItem("productInCart")) ||[]
+  cartInfo = {
+    [product.name]:product
+  }
+  cartItems.push(cartInfo)
+  localStorage.setItem("productInCart",JSON.stringify(cartItems))
 }
 
+//NOT FINISH YET
+// function displayCart() {
+//   // let cartItems =JSON.parse(localStorage.getItem("productInCart")) ||[]
+//   let cartItems =JSON.parse(localStorage.getItem("productInCart")) ||[]
+//   let productDiv = document.querySelector(".productInCard")
+//   if (cartItems&&productDiv) {
+//     productDiv.innerHTML = '';
+//     for (let i = 0; i < cartItems.length; i++) {      
+//     }
+//   }
+// }
