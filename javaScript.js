@@ -208,6 +208,56 @@ function orderPage() {
   const div1 = document.createElement("div")
   div1.className = "productInCard"
 
+
+  div.append(h2)
+  div.append(div1)
+
+  //TEST
+//         <div class="productHeader">
+{/* <h4>Product Info</h4>
+  <h4>Price</h4>
+  <h4>Quantity</h4>
+  <h4>Total</h4>
+</div> */}
+const headerContainer = document.createElement("div")
+headerContainer.className = "productHeader"
+
+const productH = document.createElement("p")
+productH.innerText = "Product"
+const priceH = document.createElement("p")
+priceH.innerText = "Price"
+headerContainer.append(productH)
+headerContainer.append(priceH)
+div.append(headerContainer)
+
+  let item = JSON.parse(localStorage.getItem("productInCart"))
+  let totalCost = JSON.parse(localStorage.getItem("totalCost"))
+  let CartContainer = document.createElement("div")
+  CartContainer.className="CartContainer"
+  if(item && CartContainer){
+      Object.values(item).map((e,i)=>{
+
+      CartContainer.innerHTML+= `
+      <div class="productItem">
+          <div class="productInfo">
+              <p>${e.product.name}</p>
+          </div>
+              <p id="priceP">${e.product.price},00RS</p>
+          </div>
+      <hr>
+      `
+  })
+  CartContainer.innerHTML += `
+  <div class="TotalContainer">
+      <h5 class="totalH">Total price</h5>
+      <p>${totalCost},00RS</p>
+      <p>With VAT! ${totalCost+(totalCost*0.15)}RS</p>
+  </div>`
+  }
+  div.append(CartContainer)
+  //TEST
+
+
   // NOT FINISH YET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   // const productTitle = document.createElement("h5")
@@ -236,13 +286,11 @@ function orderPage() {
   // div1.append(price)
   // div1.append(totalP)
 
-  div.append(h2)
-  div.append(div1)
-  body.append(div)
   
   const form = document.createElement("form")
   form.className="formOrder"
   const div11 = document.createElement("div")
+  div11.className="input"
   const name = document.createElement("label")
   name.innerText = "Enter your name: "
   const inputName = document.createElement("input")
@@ -253,8 +301,10 @@ function orderPage() {
   const inputphone = document.createElement("input")
   inputphone.type ="phone"
   const div22 = document.createElement("div")
+  div22.className="input"
 
   const div33 = document.createElement("div")
+  div33.className="input"
   const city = document.createElement("label")
   city.innerText = "City: "
   const inputCity = document.createElement("input")
@@ -263,7 +313,7 @@ function orderPage() {
 
   const sumbitB = document.createElement("input")
   sumbitB.type ="submit"
-  sumbitB.innerText = "Order"
+  sumbitB.value = "Order"
   sumbitB.className="sumbitB"
   const div44 = document.createElement("div")
 
@@ -459,16 +509,16 @@ function Recommended(body) {
     const img = document.createElement("img");
     img.className = "recomended"
     img.id = "imgProduct"
-    // if (i==0||i==1||i==2) {
+    if (i==0||i==1||i==2) {
       img.src = products[i].image_link
-    // }
-    // else{
-    //   let fixLink = products[i].image_link.slice(8);
-    //   fixLink = fixLink.slice(4);
-    //   fixLink = "http://".concat(fixLink);
-    //   console.log("fix link is : "+fixLink);
-    //   img.src = fixLink
-    // }
+    }
+    else{
+      let fixLink = products[i].image_link.slice(8);
+      fixLink = fixLink.slice(4);
+      fixLink = "http://".concat(fixLink);
+      console.log("fix link is : "+fixLink);
+      img.src = fixLink
+    }
     console.log("count "+i);
     img.style.width = "250px"
 
@@ -1070,11 +1120,9 @@ function cardCount(product) {
   if (cardCount) {
       countP.innerHTML =cardCount+1
       localStorage.setItem("CardCount",cardCount+1)
-      console.log("product added to card");
   }else{
       localStorage.setItem("CardCount",1)
       countP.innerHTML = 1
-      console.log("first product added to card");
   }
 
   // call addProductToCart() to add product into card
@@ -1111,20 +1159,8 @@ function totalPrice(product) {
 function addProductToCart(product) {//set items
   let cartItems =JSON.parse(localStorage.getItem("productInCart")) ||[]
   cartInfo = {
-    [product.name]:product
+    product,
   }
   cartItems.push(cartInfo)
   localStorage.setItem("productInCart",JSON.stringify(cartItems))
 }
-
-//NOT FINISH YET
-// function displayCart() {
-//   // let cartItems =JSON.parse(localStorage.getItem("productInCart")) ||[]
-//   let cartItems =JSON.parse(localStorage.getItem("productInCart")) ||[]
-//   let productDiv = document.querySelector(".productInCard")
-//   if (cartItems&&productDiv) {
-//     productDiv.innerHTML = '';
-//     for (let i = 0; i < cartItems.length; i++) {      
-//     }
-//   }
-// }
